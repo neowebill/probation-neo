@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row top-ribbon">
+    <div class="col-md-10">
+      <h4>Users</h4>
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-primary" (click)="onNewUser()">Add New User</button>
+    </div>
+  </div>
+  <!-- Users table -->
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-hover" *ngIf="((users$ | async) && (users$ | async).length) > 0">
+        <thead>
+        <tr>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Birth Date</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr
+          *ngFor="let user of users$ | async"
+          style="cursor: pointer;">
+          <th scope="row">{{ user.firstName }}</th>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.birthDate | date: 'd/M/y' }}</td>
+          <td>
+            <button class="btn btn-primary" style="cursor: pointer;" (click)="onEditUser(user)">Edit User</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div><!-- End of table -->
+  <p *ngIf="((users$ | async) && (users$ | async).length) === 0">There are currently no users. :(</p>
+</div>
